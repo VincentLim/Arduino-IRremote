@@ -216,12 +216,22 @@ EXTERN  volatile irparams_t  irparams;
 //
 #if defined(IR_USE_TIMER2)
 
+/* Define timer2 :
+ *  WGM20 & WGM2 : PWM, Phase Correct
+ *  TOP value : OCRA
+ *  CS20 : no prescaling
+ * 	COM2B1 :    Clear OC2B on Compare Match when up-counting
+				Set OC2B on Compare Match when down-counting
+ */
+
 #define TIMER_RESET
 #define TIMER_ENABLE_PWM    (TCCR2A |= _BV(COM2B1))
 #define TIMER_DISABLE_PWM   (TCCR2A &= ~(_BV(COM2B1)))
 #define TIMER_ENABLE_INTR   (TIMSK2 = _BV(OCIE2A))
 #define TIMER_DISABLE_INTR  (TIMSK2 = 0)
 #define TIMER_INTR_NAME     TIMER2_COMPA_vect
+
+
 
 #define TIMER_CONFIG_KHZ(val) ({ \
 	const uint8_t pwmval = SYSCLOCK / 2000 / (val); \
