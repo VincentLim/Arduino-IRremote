@@ -85,7 +85,7 @@
 				//0
 			} else {
 				return false;
-			}
+			}l
 		}
 
 		// parity check
